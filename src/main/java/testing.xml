@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ToDoApp Tests">
+    <test name="Tests">
+        <classes>
+            <class name="RegisterUser.RegisterTest"/>
+            <class name="LoginTest.UsernameNegativeTest"/>
+            <class name="LoginTest.PasswordNegativeTest"/>
+            <class name="LoginTest.LoginTest"/>
+            <class name="LogoutTest.LogoutTest"/>
+            <class name="CreateTask.CreateNegativeTaskTest"/>
+            <class name="CreateTask.CreateTaskTest"/>
+            <class name="EditTask.EditNegativeTest"/>
+            <class name="EditTask.EditTaskTest"/>
+            <class name="DeleteTask.DeleteTaskTest"></class>
+        </classes>
+    </test>
+</suite>
