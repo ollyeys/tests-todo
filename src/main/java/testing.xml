@@ -2,16 +2,16 @@
 <suite name="ToDoApp Tests">
     <test name="Tests">
         <classes>
-            <class name="RegisterUser.RegisterTest"/>
-            <class name="LoginTest.UsernameNegativeTest"/>
-            <class name="LoginTest.PasswordNegativeTest"/>
-            <class name="LoginTest.LoginTest"/>
-            <class name="LogoutTest.LogoutTest"/>
-            <class name="CreateTask.CreateNegativeTaskTest"/>
-            <class name="CreateTask.CreateTaskTest"/>
-            <class name="EditTask.EditNegativeTest"/>
-            <class name="EditTask.EditTaskTest"/>
-            <class name="DeleteTask.DeleteTaskTest"></class>
+            <class name="Tests.RegisterTest"/>
+            <class name="Tests.UsernameNegativeTest"/>
+            <class name="Tests.PasswordNegativeTest"/>
+            <class name="Tests.LoginTest"/>
+            <class name="Tests.LogoutTest"/>
+            <class name="Tests.CreateNegativeTaskTest"/>
+            <class name="Tests.CreateTaskTest"/>
+            <class name="Tests.EditNegativeTest"/>
+            <class name="Tests.EditTaskTest"/>
+            <class name="Tests.DeleteTaskTest"></class>
         </classes>
     </test>
 </suite>

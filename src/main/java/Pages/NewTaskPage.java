@@ -1,4 +1,4 @@
-package CreateTask;
+package Pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,9 +9,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class NewTaskPage {
 

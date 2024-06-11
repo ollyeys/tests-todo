@@ -11,11 +11,19 @@ CREATE TABLE IF NOT EXISTS todos(
         title VARCHAR(255),
         description VARCHAR(1000),
         user_id INT,
+        status BOOLEAN,
+        targetdate DATE,
         FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
 
+truncate table todos restart identity;
+truncate table users restart identity cascade;
 
 
+insert into users  (name, surname, username, password) values ('test','test', 'test','test');
 
-insert into users  (name, surname, username, password) values ('test_name','test_surname', 'test_username','test_password');
+
+insert into todos  (title, description, user_id, targetdate, status) values ('test', 'test',1,'2024-08-14',true);
+insert into todos  (title, description, user_id, targetdate, status) values ('test', 'test',1,'2024-08-14',true);
+insert into todos  (title, description, user_id, targetdate, status) values ('test', 'test',1,'2024-08-14',true);

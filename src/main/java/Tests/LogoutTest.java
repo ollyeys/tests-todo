@@ -1,18 +1,20 @@
-package LoginTest;
+package Tests;
 
-import Helpers.DatabaseHelper;
-import Properties.ConfProperties;
+import Pages.LoginPage;
+import Pages.ProfilePage;
+import Helpers.ConfProperties;
+
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.annotations.AfterClass;
 
-import java.util.concurrent.TimeUnit;
-
-public class LoginTest {
+public class LogoutTest {
 
     public static LoginPage loginPage;
     public static ProfilePage profilePage;
@@ -26,17 +28,18 @@ public class LoginTest {
         loginPage = new LoginPage(driver);
         profilePage = new ProfilePage(driver);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("loginpage"));
     }
 
     @Test
-    public void loginTest() {
+    public void logoutTest() {
         loginPage.inputLogin(ConfProperties.getProperty("login"));
         loginPage.inputPassword(ConfProperties.getProperty("password"));
         loginPage.clickLoginBtn();
-        String header = profilePage.getToDoListHeader();
-        Assert.assertEquals(ConfProperties.getProperty("header"), header);
+        profilePage.clickLogoutBtn();
+        WebElement loginPageElement = driver.findElement(By.id("username"));
+        Assert.assertTrue(loginPageElement.isDisplayed());
+
     }
     @AfterClass
     public void tearDown(){
@@ -45,5 +48,3 @@ public class LoginTest {
         }
     }
 }
-
-

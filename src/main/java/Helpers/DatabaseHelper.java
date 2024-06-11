@@ -1,9 +1,6 @@
 package Helpers;
 
-import Properties.ConfProperties;
-
 import java.sql.*;
-import java.time.LocalDate;
 
 public class DatabaseHelper {
 

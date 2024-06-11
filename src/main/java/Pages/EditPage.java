@@ -1,4 +1,4 @@
-package EditTask;
+package Pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -58,6 +58,9 @@ public class EditPage {
             taskTitle.clear();}
         if (taskDescription.isDisplayed() && taskDescription.isEnabled()) {
             taskDescription.clear();}
+        if (taskDate.isDisplayed() && taskDate.isEnabled()) {
+            taskDate.clear();}
+
     }
 
 

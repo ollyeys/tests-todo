@@ -1,25 +1,26 @@
-package LogoutTest;
+package Tests;
 
-import LoginTest.LoginPage;
-import LoginTest.ProfilePage;
-import Properties.ConfProperties;
-
-
+import Pages.LoginPage;
+import Pages.ProfilePage;
+import Helpers.ConfProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
-public class LogoutTest {
+public class UsernameNegativeTest {
 
     public static LoginPage loginPage;
     public static ProfilePage profilePage;
+
     public static WebDriver driver;
 
 
@@ -34,17 +35,17 @@ public class LogoutTest {
     }
 
     @Test
-    public void logoutTest() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
+    public void usernameNegativeTest() {
         loginPage.inputPassword(ConfProperties.getProperty("password"));
         loginPage.clickLoginBtn();
-        profilePage.clickLogoutBtn();
-        WebElement loginPageElement = driver.findElement(By.id("username"));
-        Assert.assertTrue(loginPageElement.isDisplayed());
-
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebElement validationMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#username:invalid")));
+        String validationText = validationMessage.getText();
+        Assert.assertNotNull("Validation error should be displayed for empty date field", validationText);
     }
+
     @AfterClass
-    public void tearDown(){
+    public void tearDown() {
         if (driver != null) {
             driver.quit();
         }

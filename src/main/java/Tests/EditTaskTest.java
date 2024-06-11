@@ -1,10 +1,10 @@
-package EditTask;
+package Tests;
 
-import CreateTask.NewTaskPage;
 import Helpers.DatabaseHelper;
-import LoginTest.LoginPage;
-import LoginTest.ProfilePage;
-import Properties.ConfProperties;
+import Pages.EditPage;
+import Pages.LoginPage;
+import Pages.ProfilePage;
+import Helpers.ConfProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;

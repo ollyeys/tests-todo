@@ -1,9 +1,8 @@
-package CreateTask;
+package Tests;
 
-import Helpers.DatabaseHelper;
-import LoginTest.LoginPage;
-import LoginTest.ProfilePage;
-import Properties.ConfProperties;
+import Pages.LoginPage;
+import Pages.ProfilePage;
+import Helpers.ConfProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,12 +15,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
-public class CreateNegativeTaskTest {
+public class PasswordNegativeTest {
     public static LoginPage loginPage;
-    public static NewTaskPage newTaskPage;
     public static ProfilePage profilePage;
+
     public static WebDriver driver;
 
 
@@ -31,27 +29,16 @@ public class CreateNegativeTaskTest {
         driver = new ChromeDriver();
         loginPage = new LoginPage(driver);
         profilePage = new ProfilePage(driver);
-        newTaskPage = new NewTaskPage(driver);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("loginpage"));
     }
 
     @Test
-    public void createNegativeTaskTest() {
+    public void passwordNegativeTest() {
         loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPassword(ConfProperties.getProperty("password"));
         loginPage.clickLoginBtn();
-        profilePage.clickAddBtn();
-
-        String taskTitle = ConfProperties.getProperty("taskTitle");
-        String taskDescription = ConfProperties.getProperty("taskDescription");
-        Boolean taskStatus = Boolean.valueOf(ConfProperties.getProperty("taskStatus"));
-        String taskDate = ConfProperties.getProperty("taskDate");
-
-        newTaskPage.createInvalidTask(taskTitle, taskDescription, taskStatus);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        WebElement validationMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#targetDate:invalid")));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement validationMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#password:invalid")));
         String validationText = validationMessage.getText();
         Assert.assertNotNull("Validation error should be displayed for empty date field", validationText);
     }
@@ -62,5 +49,4 @@ public class CreateNegativeTaskTest {
             driver.quit();
         }
     }
-
 }

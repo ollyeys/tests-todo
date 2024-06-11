@@ -3,7 +3,7 @@ version: "3.9"
 services:
   app:
     image: todo-application
-    build: 'https://github.com/ollyeys/todo-application.git#master'
+#    build: 'https://github.com/ollyeys/todo-application.git#master'
     ports:
       - 8080:8080
 
@@ -38,5 +38,54 @@ services:
       - POSTGRES_PORT=5432
 
     volumes:
-      - ./db:/var/lib/postgresql
-      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+          - ./db:/var/lib/postgresql
+          - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+
+#services:
+#  #  app:
+#  #    image: todo-application
+#  #    build: 'https://github.com/ollyeys/todo-application.git#master'
+#  #    ports:
+#  #      - 8080:8080
+#  #
+#  #    environment:
+#  #      - DB_URL=jdbc:postgresql://test_db:5432/test_db
+#  #      - DB_USER=test_db
+#  #      - DB_PASSWORD=test_db
+#
+#  test:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    expose:
+#      - 8081:8081
+#    environment:
+#      - DB_URL=jdbc:postgresql://0.0.0.0:5432/test_db
+#      - DB_USER=test_db
+#      - DB_PASSWORD=test_db
+#
+#
+#  test_db:
+#    image: postgres:latest
+#    restart: always
+#    ports:
+#      - "5432:5432"
+#    expose:
+#      - 5432:5432
+#    environment:
+#      - POSTGRES_DB=test_db
+#      - POSTGRES_USER=test_db
+#      - POSTGRES_PASSWORD=test_db
+#      - POSTGRES_PORT=5432
+#
+#    volumes:
+#      - ./db:/var/lib/postgresql
+#      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+#
+#      - POSTGRES_PASSWORD=test_db
+#      - POSTGRES_PORT=5432
+#
+#    volumes:
+#      - ./db:/var/lib/postgresql
+#      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

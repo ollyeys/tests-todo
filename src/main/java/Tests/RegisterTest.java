@@ -1,13 +1,14 @@
-package RegisterUser;
+package Tests;
 
 import Helpers.DatabaseHelper;
-import LoginTest.LoginPage;
-import LoginTest.ProfilePage;
-import Properties.ConfProperties;
+import Pages.LoginPage;
+import Pages.RegisterPage;
+import Helpers.ConfProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -26,6 +27,8 @@ public class RegisterTest {
     @BeforeClass
     public static void setup() {
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        ChromeOptions options = new ChromeOptions();
+        options.setBrowserVersion("116.0.5845.111");
         driver = new ChromeDriver();
         loginPage = new LoginPage(driver);
         registerPage = new RegisterPage(driver);

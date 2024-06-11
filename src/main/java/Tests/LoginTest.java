@@ -1,25 +1,22 @@
-package LoginTest;
+package Tests;
 
-import Properties.ConfProperties;
-import org.openqa.selenium.By;
+import Pages.LoginPage;
+import Pages.ProfilePage;
+import Helpers.ConfProperties;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.annotations.AfterClass;
 
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public class UsernameNegativeTest {
+public class LoginTest {
 
     public static LoginPage loginPage;
     public static ProfilePage profilePage;
-
     public static WebDriver driver;
 
 
@@ -30,23 +27,24 @@ public class UsernameNegativeTest {
         loginPage = new LoginPage(driver);
         profilePage = new ProfilePage(driver);
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("loginpage"));
     }
 
     @Test
-    public void usernameNegativeTest() {
+    public void loginTest() {
+        loginPage.inputLogin(ConfProperties.getProperty("login"));
         loginPage.inputPassword(ConfProperties.getProperty("password"));
         loginPage.clickLoginBtn();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        WebElement validationMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#username:invalid")));
-        String validationText = validationMessage.getText();
-        Assert.assertNotNull("Validation error should be displayed for empty date field", validationText);
+        String header = profilePage.getToDoListHeader();
+        Assert.assertEquals(ConfProperties.getProperty("header"), header);
     }
-
     @AfterClass
-    public void tearDown() {
+    public void tearDown(){
         if (driver != null) {
             driver.quit();
         }
     }
 }
+
+

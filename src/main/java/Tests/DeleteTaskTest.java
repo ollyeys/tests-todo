@@ -1,10 +1,9 @@
-package CreateTask;
+package Tests;
 
 import Helpers.DatabaseHelper;
-import Helpers.JDBCUtils;
-import LoginTest.LoginPage;
-import LoginTest.ProfilePage;
-import Properties.ConfProperties;
+import Pages.LoginPage;
+import Pages.ProfilePage;
+import Helpers.ConfProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -12,17 +11,14 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class CreateTaskTest {
+public class DeleteTaskTest {
 
-    public static LoginPage loginPage;
-    public static NewTaskPage newTaskPage;
-    public static ProfilePage profilePage;
     public static WebDriver driver;
 
+    public static LoginPage loginPage;
+    public static ProfilePage profilePage;
 
     @BeforeClass
     public static void setup() {
@@ -30,34 +26,39 @@ public class CreateTaskTest {
         driver = new ChromeDriver();
         loginPage = new LoginPage(driver);
         profilePage = new ProfilePage(driver);
-        newTaskPage = new NewTaskPage(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("loginpage"));
     }
 
+
     @Test
-    public void createTaskTest() {
+    public static void deleteTaskTest() {
         loginPage.inputLogin(ConfProperties.getProperty("login"));
         loginPage.inputPassword(ConfProperties.getProperty("password"));
         loginPage.clickLoginBtn();
-        profilePage.clickAddBtn();
 
-        String taskTitle = ConfProperties.getProperty("taskTitle");
-        String taskDescription = ConfProperties.getProperty("taskDescription");
-        Boolean taskStatus = Boolean.valueOf(ConfProperties.getProperty("taskStatus"));
-        String taskDate = ConfProperties.getProperty("taskDate");
+        String taskTitle = ConfProperties.getProperty("taskEditTitle");
+        String taskDescription = ConfProperties.getProperty("taskEditDescription");
+        Boolean taskStatus = Boolean.valueOf(ConfProperties.getProperty("taskEditStatus"));
+        String taskDate = ConfProperties.getProperty("taskEditDate");
 
-        System.out.println(taskTitle + taskDescription + taskStatus + taskDate);
+        profilePage.clickDeleteBtn();
 
-
-        newTaskPage.createTask(taskTitle, taskDescription, taskStatus, taskDate);
         boolean taskExists = DatabaseHelper.isTaskExists(taskTitle, taskDescription, taskStatus);
-        Assert.assertTrue(taskExists, "Task isn't in DB");
+        Assert.assertFalse(taskExists, "Task isn't in DB");
+
+
     }
 
     @AfterClass
     public void tearDown() {
+//        boolean isDeleted = DatabaseHelper.clearDB();
+//        if (isDeleted) {
+//            System.out.println("Users successfully deleted from the database.");
+//        } else {
+//            System.out.println("Failed to delete users from the database.");
+//        }
         if (driver != null) {
             driver.quit();
         }
