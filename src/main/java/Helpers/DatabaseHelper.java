@@ -1,5 +1,8 @@
 package Helpers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 
 public class DatabaseHelper {
@@ -7,6 +10,8 @@ public class DatabaseHelper {
     private static final String jdbcURL =  ConfProperties.getProperty("DB_URL");
     private static final String jdbcUsername =ConfProperties.getProperty("DB_USER");
     private static final String jdbcPassword = ConfProperties.getProperty("DB_PASSWORD");
+
+    protected static final Logger LOGGER = LogManager.getLogger();
 
 //    private static final String jdbcUsername = ConfProperties.getProperty("DB_USER");
 //    private static final String jdbcPassword = ConfProperties.getProperty("DB_PASSWORD");
@@ -43,7 +48,7 @@ public class DatabaseHelper {
 
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println(preparedStatement);
+            LOGGER.info(preparedStatement);
             return resultSet.next();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -58,12 +63,12 @@ public class DatabaseHelper {
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_TASK)) {
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
-//            preparedStatement.setString(3, targetdate);
             preparedStatement.setBoolean(3, status);
 
             System.out.println(preparedStatement);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println(resultSet);
             return resultSet.next();
 
         } catch (SQLException | ClassNotFoundException e) {

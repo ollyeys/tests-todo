@@ -9,11 +9,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class RegisterTest {
@@ -21,29 +24,43 @@ public class RegisterTest {
     public static RegisterPage registerPage;
     public static LoginPage loginPage;
 
-    public static WebDriver driver;
+    public static RemoteWebDriver driver;
+
+    public static URL browser_url;
+    public static ChromeOptions options;
 
 
     @BeforeClass
-    public static void setup() {
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
-        ChromeOptions options = new ChromeOptions();
-        options.setBrowserVersion("116.0.5845.111");
-        driver = new ChromeDriver();
+    public static void setup() throws MalformedURLException {
+
+        browser_url = new URL(ConfProperties.getProperty("BROWSER_URL"));
+
+
+        options = new ChromeOptions();
+        options.addArguments("--headless"); // Запуск в headless режиме
+        options.addArguments("--no-sandbox"); // Отключение sandbox режима
+        options.addArguments("--window-size=1366,768");
+//        options.addArguments("--disable-dev-shm-usage"); // Уменьшение использования /dev/shm
+//        options.addArguments("--disable-gpu"); // Отключение GPU
+
+
+        driver = new RemoteWebDriver(browser_url, options);
+
         loginPage = new LoginPage(driver);
         registerPage = new RegisterPage(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("loginpage"));
+        driver.get(ConfProperties.getProperty("LOGIN_PAGE"));
     }
 
     @Test
     public void registerTest() {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         loginPage.clickSignUpBtn();
-        String name = ConfProperties.getProperty("name");
-        String surname = ConfProperties.getProperty("surname");
-        String login = ConfProperties.getProperty("login");
-        String password = ConfProperties.getProperty("password");
+        String name = ConfProperties.getProperty("NAME");
+        String surname = ConfProperties.getProperty("SURNAME");
+        String login = ConfProperties.getProperty("LOGIN");
+        String password = ConfProperties.getProperty("PASSWORD");
 
         registerPage.registerUser(name,surname,login,password);
 

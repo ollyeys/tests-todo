@@ -3,13 +3,13 @@
     <test name="Tests">
         <classes>
             <class name="Tests.RegisterTest"/>
+            <class name="Tests.CreateTaskTest"/>
+            <class name="Tests.EditNegativeTest"/>
             <class name="Tests.UsernameNegativeTest"/>
             <class name="Tests.PasswordNegativeTest"/>
             <class name="Tests.LoginTest"/>
             <class name="Tests.LogoutTest"/>
             <class name="Tests.CreateNegativeTaskTest"/>
-            <class name="Tests.CreateTaskTest"/>
-            <class name="Tests.EditNegativeTest"/>
             <class name="Tests.EditTaskTest"/>
             <class name="Tests.DeleteTaskTest"></class>
         </classes>

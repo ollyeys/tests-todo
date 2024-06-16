@@ -2,14 +2,15 @@ package Pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class RegisterPage {
 
-    public WebDriver driver;
+    public RemoteWebDriver driver;
 
-    public RegisterPage(WebDriver driver) {
+    public RegisterPage(RemoteWebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }

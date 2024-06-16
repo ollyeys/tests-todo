@@ -1,8 +1,9 @@
-#!/bin/bash
-
-docker compose up down
 echo '============= DOWNLOAD SOURCE APPLICATION =============='
 docker build -t todo-application https://github.com/ollyeys/todo-application.git
-echo '============= SUCCESSFULLY =============='
+echo '============= SUCCESSFULLY DOWNLOAD =============='
 
-docker compose up --build
+
+echo '============= START TESTS =============='
+docker compose up --build --abort-on-container-exit || true
+docker compose down
+echo '============= END =============='

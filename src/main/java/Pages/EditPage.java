@@ -2,19 +2,21 @@ package Pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.Date;
 import java.time.Duration;
 
 public class EditPage {
 
-    public WebDriver driver;
+    public RemoteWebDriver driver;
 
-    public EditPage(WebDriver driver) {
+    public EditPage(RemoteWebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
@@ -46,8 +48,8 @@ public class EditPage {
     }
 
 
-    public void selectDate(String date) {
-        taskDate.sendKeys(date);
+    public void selectDate(Date date) {
+        taskDate.sendKeys(String.valueOf(date));
         System.out.println(taskDate);
     }
 
@@ -58,25 +60,33 @@ public class EditPage {
             taskTitle.clear();}
         if (taskDescription.isDisplayed() && taskDescription.isEnabled()) {
             taskDescription.clear();}
+//        if (taskDate.isDisplayed() && taskDate.isEnabled()) {
+//            taskDate.clear();}
+
+    }
+
+    public void clearFieldsInvalid() {
+        if (taskTitle.isDisplayed() && taskTitle.isEnabled()) {
+            taskTitle.clear();}
+        if (taskDescription.isDisplayed() && taskDescription.isEnabled()) {
+            taskDescription.clear();}
         if (taskDate.isDisplayed() && taskDate.isEnabled()) {
             taskDate.clear();}
 
     }
 
 
-    public void editTask(String title, String description, Boolean status, String  date) {
+    public void editTask(String title, String description, Boolean status) {
         clearFields();
 //        taskDate.click();
         inputTitle(title);
         inputDescription(description);
         selectStatus(status);
-        taskDate.click();
-        selectDate(date);
         clickEditBtn();
     }
 
     public void editInvalidTask(String title, String description, Boolean status) {
-        clearFields();
+        clearFieldsInvalid();
         inputTitle(title);
         inputDescription(description);
         selectStatus(status);
