@@ -40,8 +40,8 @@ public class RegisterTest {
         options.addArguments("--headless"); // Запуск в headless режиме
         options.addArguments("--no-sandbox"); // Отключение sandbox режима
         options.addArguments("--window-size=1366,768");
-//        options.addArguments("--disable-dev-shm-usage"); // Уменьшение использования /dev/shm
-//        options.addArguments("--disable-gpu"); // Отключение GPU
+        options.addArguments("--disable-dev-shm-usage"); // Уменьшение использования /dev/shm
+        options.addArguments("--disable-gpu"); // Отключение GPU
 
 
         driver = new RemoteWebDriver(browser_url, options);
